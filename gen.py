@@ -13,14 +13,14 @@ class Person:
         print("Hello, " + self.name + "!")
 
 
-def spawn_children(parent):
+def create_children(parent):
     for x in range(random.randint(0, 2)):
-        new_child = spawn_child(parent, x)
+        new_child = create_child(parent, x)
         parent.children.append(new_child)
     return parent.children
 
 
-def spawn_child(parent, x):
+def create_child(parent, x):
     # Child has parents name + an extra digit
     child = Person(parent.name + str(x), parent.generation + 1, parent)
     print("GEN: " + str(child.generation))
@@ -31,13 +31,13 @@ def spawn_child(parent, x):
 
 def main():
     queue = []
-    Grandpa = Person("0", 0, object)
-    current_node = Grandpa
+    Origin = Person("0", 0, object)
+    current_node = Origin
     queue.append(current_node)
     numOfPeople = 1
 
     while len(queue) > 0:
-        newNodes = spawn_children(current_node)
+        newNodes = create_children(current_node)
         queue = newNodes + queue
         numOfPeople += len(newNodes)
 
@@ -48,7 +48,7 @@ def main():
         current_node = queue[0]
         queue.pop(0)
 
-    print("Number of people in family tree: " + str(numOfPeople))
+    print("Number in bloodline: " + str(numOfPeople))
 
 
 # Main in Python
