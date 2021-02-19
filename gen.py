@@ -5,8 +5,7 @@ import random
 class Person:
 
     # Constructor
-    def __init__(self, name, age, generation, parent):
-        self.age = age
+    def __init__(self, name, generation, parent):
         self.name = name
         self.generation = generation
         self.parent = parent
@@ -17,15 +16,13 @@ class Person:
 def spawn_children(parent):
     for x in range(random.randint(0, 2)):
         new_child = spawn_child(parent, x)
-
         parent.children.append(new_child)
-
     return parent.children
 
 
 def spawn_child(parent, x):
     # Child has parents name + an extra digit
-    child = Person(parent.name + str(x), 4, parent.generation + 1, parent)
+    child = Person(parent.name + str(x), parent.generation + 1, parent)
     print("GEN: " + str(child.generation))
     print("PARENT: " + child.parent.name)
     print("------------")
@@ -34,12 +31,15 @@ def spawn_child(parent, x):
 
 def main():
     queue = []
-    Grandpa = Person("0", 80, 0, object)
+    Grandpa = Person("0", 0, object)
     current_node = Grandpa
     queue.append(current_node)
+    numOfPeople = 1
 
     while len(queue) > 0:
-        queue = spawn_children(current_node) + queue
+        newNodes = spawn_children(current_node)
+        queue = newNodes + queue
+        numOfPeople += len(newNodes)
 
         # Print the current queue
         # for i in range(len(queue)):
@@ -47,6 +47,8 @@ def main():
 
         current_node = queue[0]
         queue.pop(0)
+
+    print("Number of people in family tree: " + str(numOfPeople))
 
 
 # Main in Python
