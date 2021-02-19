@@ -1,5 +1,4 @@
-# Program to learn OOP in Python
-# TODO: Create a queue to change current_node and make more generations
+# Program to learn OOP and queues in Python
 import random
 
 
@@ -12,7 +11,7 @@ class Person:
         self.generation = generation
         self.parent = parent
         self.children = []
-        print("hello " + self.name + "!")
+        print("Hello, " + self.name + "!")
 
 
 def spawn_children(parent):
@@ -25,6 +24,7 @@ def spawn_children(parent):
 
 
 def spawn_child(parent, x):
+    # Child has parents name + an extra digit
     child = Person(parent.name + str(x), 4, parent.generation + 1, parent)
     print("GEN: " + str(child.generation))
     print("PARENT: " + child.parent.name)
@@ -39,8 +39,7 @@ def main():
     queue.append(current_node)
 
     while len(queue) > 0:
-        returned = spawn_children(current_node)
-        queue = returned + queue
+        queue = spawn_children(current_node) + queue
 
         # Print the current queue
         # for i in range(len(queue)):
